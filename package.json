@@ -23,7 +23,6 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.3.0",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.0.14",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
@@ -36,6 +35,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^15.15.0",
+    "tailwindcss": "^4.0.14",
     "vite": "^6.2.0"
   }
 }

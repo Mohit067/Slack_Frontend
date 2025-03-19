@@ -5,55 +5,38 @@ import { Separator } from "@/components/ui/separator"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-export const SignupCard = () => {
-    
+export const SigninCard = () => {
+
     const navigate = useNavigate();
 
-    const [signupForm, setSignupForm] = useState({
-        email: '',
-        password: '',
-        confirmPassword: '',
-        username: ''
+    const [signinForm, setSinginForm] = useState({
+        email:'',
+        password:''
     })
 
     return (
         <Card className="h-full w-full">
             <CardHeader>
-                <CardTitle>Sign Up</CardTitle>
-                <CardDescription>Sign up to access your account</CardDescription>
+                <CardTitle>Sign In</CardTitle>
+                <CardDescription>Sign in to access your account</CardDescription>
             </CardHeader>
+
             <CardContent>
                 <form className="space-y-3">
                     <Input 
                         placeholder='Email'
                         required
-                        onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value})}
-                        value={signupForm.email}
+                        onChange={(e) => setSinginForm({ ...signinForm, email: e.target.value})}
+                        value={signinForm.email}
                         type="email"
                         disabled={false}
-                    />
+                    /> 
                     <Input 
                         placeholder='Password'
                         required
-                        onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value})}
-                        value={signupForm.password}
+                        onChange={(e) => setSinginForm({ ...signinForm, password: e.target.value})}
+                        value={signinForm.password}
                         type="password"
-                        disabled={false}
-                    />
-                    <Input 
-                        placeholder='Confirm Password'
-                        required
-                        onChange={(e) => setSignupForm({ ...signupForm, confirmPassword: e.target.value})}
-                        value={signupForm.confirmPassword}
-                        type="password"
-                        disabled={false}
-                    />
-                    <Input 
-                        placeholder='Your Username'
-                        required
-                        onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value})}
-                        value={signupForm.username}
-                        type="text"
                         disabled={false}
                     />
                     <Button
@@ -64,18 +47,18 @@ export const SignupCard = () => {
                     >
                         Continue
                     </Button>
-                </form>
 
+                </form>
                 <Separator className="my-5" />
                 <p
                     className="text-s text-muted-foreground mt-4"
                 >
-                    Already have an account ? {' '}
+                    Donot have an account ? {' '}
                     <span 
                         className="text-sky-700 hover:underline cursor-pointer"
-                        onClick={() => navigate('/auth/signin')}
+                        onClick={() => navigate('/auth/signup')}
                     >
-                        Sign In
+                        Sign Up
                     </span>
                 </p>
             </CardContent>
