@@ -2,34 +2,60 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { useState } from "react"
+import { LucideLoader2, TriangleAlert } from "lucide-react"
+import { FaCheck } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 
-export const SigninCard = () => {
+export const SigninCard = ({ 
+    signinForm, 
+    setSinginForm, 
+    onSigninFormSubmit, 
+    validationError,
+    error,
+    isSuccess,
+    isPending
+}) => {
 
     const navigate = useNavigate();
-
-    const [signinForm, setSinginForm] = useState({
-        email:'',
-        password:''
-    })
-
+    
     return (
         <Card className="h-full w-full">
             <CardHeader>
                 <CardTitle>Sign In</CardTitle>
                 <CardDescription>Sign in to access your account</CardDescription>
+
+                {validationError && (
+                    <div className="bg-destructive/15 p-4 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+                        <TriangleAlert className="size-5" />
+                        <p>{validationError.message}</p>
+                    </div>
+                )}
+                {error && (
+                    <div className="bg-destructive/15 p-4 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+                        <TriangleAlert className="size-5" />
+                        <p>{error.message}</p>
+                    </div>
+                )}
+                {isSuccess && (
+                    <div className="flex items-center justify-center bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-md">
+                        <FaCheck className="text-green-700 w-4 h-4 mr-2" />
+                        <p className="text-sm font-medium">
+                            Successfully signed in. You will be redirected to the home page in a few seconds.
+                        </p>
+                        <LucideLoader2 className="animate-spin ml-2 w-5 h-5 text-green-700" />
+                    </div>
+                )}
             </CardHeader>
 
             <CardContent>
-                <form className="space-y-3">
+                <form className="space-y-3" onSubmit={onSigninFormSubmit}>
                     <Input 
                         placeholder='Email'
                         required
                         onChange={(e) => setSinginForm({ ...signinForm, email: e.target.value})}
                         value={signinForm.email}
                         type="email"
-                        disabled={false}
+                        disabled={isPending}
                     /> 
                     <Input 
                         placeholder='Password'
@@ -37,10 +63,10 @@ export const SigninCard = () => {
                         onChange={(e) => setSinginForm({ ...signinForm, password: e.target.value})}
                         value={signinForm.password}
                         type="password"
-                        disabled={false}
+                        disabled={isPending}
                     />
                     <Button
-                        disabled={false}
+                        disabled={isPending}
                         size='lg'
                         type='submit'
                         className='w-full'

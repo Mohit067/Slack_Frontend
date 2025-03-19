@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SignupCard } from "./SignupCard";
-import { useSignUp } from "@/hooks/apis/auth/useSignUp";
+import { useSignup } from "@/hooks/apis/auth/useSignUp";
 import { useNavigate } from "react-router-dom";
 
 export const SignupContainer = () => {
@@ -14,7 +14,7 @@ export const SignupContainer = () => {
 
     const [validationError, setValidationError] = useState(null);
 
-    const {isPending, isSuccess, error, signupMutation} = useSignUp();
+    const {isPending, isSuccess, error, signupMutation} = useSignup();
 
     async function onSignupFormSubmit (e) {
         e.preventDefault();

@@ -1,17 +1,17 @@
-import { signUpRquest } from "@/apis/auth"
-import { useMutation } from "@tanstack/react-query"
+import { signInRquest } from "@/apis/auth";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 
-export const useSignup = () => {
+export const useSignin = () => {
     
-    const { isPending, isSuccess, error, mutateAsync: signupMutation} = useMutation({
-        mutationFn: signUpRquest,
+    const { isPending, isSuccess, error, mutateAsync: signinMutation} = useMutation({
+        mutationFn: signInRquest,
         onSuccess: (data) => {
-            console.log("Successfully signed up", data);
-            toast("Successfully signed up", {
+            console.log("Successfully signed in", data);
+            toast("Successfully signed in", {
                 variant: "destructive",
-                description: "You will be redirected to the login page in a few seconds.",
+                description: "You will be redirected to the home page in a few seconds.",
                 action: {
                   label: "Undo",
                   onClick: () => console.log("Undo"),
@@ -20,8 +20,8 @@ export const useSignup = () => {
 
         },
         onError: (error) => {
-            console.log("Failed to sign up", error);
-            toast("Failed to signed up", {
+            console.log("Failed to sign in", error);
+            toast("Failed to signed in", {
                 description: "Something went wrong",
                 action: {
                   label: "Undo",
@@ -35,6 +35,6 @@ export const useSignup = () => {
         isPending,
         isSuccess,
         error,
-        signupMutation
+        signinMutation
     }
 }
