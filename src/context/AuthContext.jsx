@@ -7,16 +7,25 @@ export const AuthContextProvider = ({ children }) => {
 
     const [auth, setAuth] = useState({
         user: null,
-        token: ''
+        token: null,
+        isLoading: true,
     });
 
     useEffect(() => {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
+        
         if(user && token){
             setAuth({
                 user: JSON.parse(user),
-                token
+                token,
+                isLoading: false
+            });
+        } else {
+            setAuth({
+                user: null,
+                token: null,
+                isLoading: false
             });
         }
     }, []);
@@ -27,3 +36,5 @@ export const AuthContextProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 }
+
+export default AuthContext;
