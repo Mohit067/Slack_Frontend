@@ -1,6 +1,7 @@
 import { UserButton } from "@/components/atoms/UserButton/UserButton";
 import { SidebarButton } from "@/components/molecules/SidebarButton/SidebarButton";
 import { BellIcon, HomeIcon, MessageSquareIcon, MoreHorizontalIcon } from "lucide-react";
+import { WorkspaceSwitcher } from "./WorkspaceSwitcher";
 
 export const WorkspaceSidebar = () => {
     return (
@@ -8,6 +9,8 @@ export const WorkspaceSidebar = () => {
             items-center pt-[10px] pb-[px]"
 
         >   
+            <WorkspaceSwitcher />
+
             <SidebarButton 
                 Icon={HomeIcon}
                 label="Home"
