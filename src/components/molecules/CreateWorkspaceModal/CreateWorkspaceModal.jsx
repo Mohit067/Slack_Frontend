@@ -24,7 +24,7 @@ export const CreateWorkspaceModal = () => {
         try {
             const data = await createWorkspaceMutation({name: workspaceName});
             console.log("Created the workspaces", data);
-            navigate(`/workspace/${data._id}`)
+            navigate(`/workspaces/${data._id}`)
         } catch (error) {
             console.log("Not able to create workspace", error);
         } finally {
