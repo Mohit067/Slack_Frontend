@@ -1,4 +1,5 @@
 import { WorkspaceNavbar, } from "@/components/organisms/Workspace/WorkspaceNavbar";
+import { WorkspacePannel } from "@/components/organisms/Workspace/WorkspacePannel";
 import { WorkspaceSidebar } from "@/components/organisms/Workspace/WorkspaceSidebar";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 
@@ -14,10 +15,9 @@ export const WorkspaceLayout = ({ children }) => {
                         minSize={11}
                         className='bg-[#4b1550]'
                     >
-                        <div>
-                            Sidebar
-                        </div>
+                        <WorkspacePannel />
                     </ResizablePanel>
+                    
                     <ResizableHandle withHandle/>
                     <ResizablePanel  minSize={20}>
                         { children }
