@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { useDeleteWorkspace } from "@/hooks/apis/workspaces/useDeleteWorkspace";
 import { useUpdateWorkspace } from "@/hooks/apis/workspaces/useUpdateWorkspace";
 import { useWorkspacePrefrenceModal } from "@/hooks/context/useWorkspacePrefrenceModal";
+import { useConfirm } from "@/hooks/useConfirm";
 import { useQueryClient } from "@tanstack/react-query";
 import { TrashIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -20,6 +21,8 @@ export const WorkspacePrefrenceModal = () => {
     const { initalValue, openPrefrences ,setOpenPrefrences, workspace } = useWorkspacePrefrenceModal();
     const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);   
     const { isPending, updateWorkspaceMutation } = useUpdateWorkspace(workspaceId);
+    const { Confirmation, ConfirmDialog} = useConfirm({ title: "Do you want to delete the workspace", message: "This action cannot be undone"});
+    const { Confirmation: UpdateConfirmation, ConfirmDialog: UpdateDialog} = useConfirm({ title: "Do you want to update the workspace", message: "This action cannot be undone"})
 
     const [renameValue, setRenameValue] = useState(workspace?.name);
 
@@ -30,6 +33,11 @@ export const WorkspacePrefrenceModal = () => {
 
     async function handleDelete() {
         try {
+            const ok = await Confirmation();
+            console.log("Confirmation recieved");
+            if(!ok){
+                return;
+            }
             await deleteWorkspaceMutation();
             navigate('/home');
             queryClient.invalidateQueries('fetchWorkspaces');
@@ -56,6 +64,11 @@ export const WorkspacePrefrenceModal = () => {
     async function handleFormSubmit(e) {
         e.preventDefault();
         try {
+            const ok = await UpdateConfirmation();
+            console.log("Confirmation recieved");
+            if(!ok){
+                return;
+            }
             await updateWorkspaceMutation(renameValue);
             queryClient.invalidateQueries(`fetchWorkspaceById-${workspace?._id}`);
             setOpenPrefrences(false);
@@ -79,7 +92,10 @@ export const WorkspacePrefrenceModal = () => {
     }
 
     return (
-        <Dialog open={openPrefrences} onOpenChange={setOpenPrefrences}>
+        <>
+            <ConfirmDialog />
+            <UpdateDialog />
+            <Dialog open={openPrefrences} onOpenChange={setOpenPrefrences}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
@@ -156,6 +172,7 @@ export const WorkspacePrefrenceModal = () => {
                     </Button>
                 </div>
             </DialogContent>
-        </Dialog>
+            </Dialog>
+        </>
     )
 }
