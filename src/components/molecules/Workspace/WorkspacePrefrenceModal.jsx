@@ -24,7 +24,11 @@ export const WorkspacePrefrenceModal = () => {
                             <p className="font-semibold size-sm hover:underline">
                                 Edit
                             </p>
+
                         </div>
+                        <p className="text-sm">
+                            {initalValue}
+                        </p>
                     </div>
                     <Button className="flex items-center gap-2 px-3 py-2 bg-red-500 text-white rounded-md 
                     text-sm font-medium transition-all duration-200 hover:bg-red-600 active:bg-red-700">

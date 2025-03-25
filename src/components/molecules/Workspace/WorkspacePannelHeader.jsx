@@ -13,7 +13,7 @@ export const WorkspacePannelHeader = ({ workspace }) => {
 
     const isLoggedInUserAnAdminOfThisWorkspace = workspaceMembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
 
-    const { setOpenPrefrences } = useWorkspacePrefrenceModalContext();
+    const { setOpenPrefrences, setInitialValue } = useWorkspacePrefrenceModalContext();
 
     return (
         <div
@@ -55,7 +55,10 @@ export const WorkspacePannelHeader = ({ workspace }) => {
                         <>
                             <DropdownMenuItem 
                                 className="cursor-pointer py-2"
-                                onClick={() => setOpenPrefrences(true)}
+                                onClick={() => {
+                                    setInitialValue(workspace?.name);
+                                    setOpenPrefrences(true);
+                                }}
                             >
                                 prefrence
                             </DropdownMenuItem>
