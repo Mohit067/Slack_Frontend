@@ -19,8 +19,6 @@ export const WorkspacePannelHeader = ({ workspace }) => {
 
     const isLoggedInUserAnAdminOfThisWorkspace = workspaceMembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
 
-    // const { setOpenPrefrences, setInitialValue } = useWorkspacePrefrenceModal();
-
     useEffect(() => {
         setWorkspace(workspace);
     }, [])
