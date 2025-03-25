@@ -2,17 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useDeleteWorkspace } from "@/hooks/apis/workspaces/useDeleteWorkspace";
 import { useWorkspacePrefrenceModal } from "@/hooks/context/useWorkspacePrefrenceModal";
+import { useQueryClient } from "@tanstack/react-query";
 import { TrashIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export const WorkspacePrefrenceModal = () => {
 
-    const { initalValue, openPrefrences ,setOpenPrefrences, workspace } = useWorkspacePrefrenceModal();
-
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
     const [workspaceId, setWorkspaceId] = useState(null);
-    console.log("workspaceId::::", workspaceId);
 
+    const { initalValue, openPrefrences ,setOpenPrefrences, workspace } = useWorkspacePrefrenceModal();
     const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);   
 
     useEffect(() => {
@@ -22,7 +24,9 @@ export const WorkspacePrefrenceModal = () => {
     async function handleDelete() {
         try {
             await deleteWorkspaceMutation();
-            console.log("deleted");
+            navigate('/home');
+            queryClient.invalidateQueries('fetchWorkspaces');
+            setOpenPrefrences(false);
             toast("Successfully delete workspace", {
                 variant: "destructive",
                 action: {
