@@ -1,17 +1,20 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/hooks/context/useAuth"
+import { useWorkspacePrefrenceModalContext } from "@/hooks/context/useWorkspacePrefrenceModalContext"
 import { DropdownMenu, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import {  ChevronDownIcon, ListFilterIcon, SquarePenIcon } from "lucide-react"
 
 export const WorkspacePannelHeader = ({ workspace }) => {
 
     const workspaceMembers = workspace?.members;
-    console.log("this is workspacmember ::: ",workspaceMembers);
+
     const { auth } = useAuth();
-    console.log("this is auth ::: ",auth)
+
     const isLoggedInUserAnAdminOfThisWorkspace = workspaceMembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
-    console.log(isLoggedInUserAnAdminOfThisWorkspace)
+
+    const { setOpenPrefrences } = useWorkspacePrefrenceModalContext();
+
     return (
         <div
             className="flex items-center justify-between px-4 h-[50px] gap-0.5"
@@ -50,7 +53,10 @@ export const WorkspacePannelHeader = ({ workspace }) => {
 
                     {isLoggedInUserAnAdminOfThisWorkspace && (
                         <>
-                            <DropdownMenuItem className="cursor-pointer py-2">
+                            <DropdownMenuItem 
+                                className="cursor-pointer py-2"
+                                onClick={() => setOpenPrefrences(true)}
+                            >
                                 prefrence
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
