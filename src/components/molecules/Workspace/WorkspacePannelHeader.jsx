@@ -1,21 +1,31 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/hooks/context/useAuth"
-import { useWorkspacePrefrenceModalContext } from "@/hooks/context/useWorkspacePrefrenceModalContext"
+import { useWorkspacePrefrenceModal } from "@/hooks/context/useWorkspacePrefrenceModal"
 import { DropdownMenu, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import {  ChevronDownIcon, ListFilterIcon, SquarePenIcon } from "lucide-react"
+import { useEffect } from "react"
 
 export const WorkspacePannelHeader = ({ workspace }) => {
+
+    console.log('workspace is', workspace);
+
+    const { setWorkspace, setOpenPrefrences, setInitialValue } = useWorkspacePrefrenceModal();
 
     const workspaceMembers = workspace?.members;
 
     const { auth } = useAuth();
+    console.log(auth);
 
     const isLoggedInUserAnAdminOfThisWorkspace = workspaceMembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
 
-    const { setOpenPrefrences, setInitialValue } = useWorkspacePrefrenceModalContext();
+    // const { setOpenPrefrences, setInitialValue } = useWorkspacePrefrenceModal();
 
-    return (
+    useEffect(() => {
+        setWorkspace(workspace);
+    }, [])
+
+    return ( 
         <div
             className="flex items-center justify-between px-4 h-[50px] gap-0.5"
         >
