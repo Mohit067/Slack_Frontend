@@ -1,6 +1,8 @@
 import { SideBarItem } from "@/components/atoms/SideBarItem/SideBarItem";
 import { WorkspacePannelHeader } from "@/components/molecules/Workspace/WorkspacePannelHeader";
+import { WorkspacePannelSection } from "@/components/molecules/Workspace/WorkspacePannelSection";
 import { useGetWorkspaceById } from "@/hooks/apis/workspaces/useGetWorkspaceById";
+import { useCreateChannelModal } from "@/hooks/context/useCreateChannelModal";
 import { AlertTriangle, HashIcon, Loader, MessageSquareTextIcon, SendHorizonalIcon } from "lucide-react";
 import { useParams } from "react-router-dom"
 
@@ -47,11 +49,14 @@ export const WorkspacePannel = () => {
                 />
             </div>
 
-            <div>
+            <WorkspacePannelSection
+                label={'Channels'}
+                
+            >
                 {workspace?.channels?.map((channel) => {
                     return <SideBarItem key={channel._id} icon={HashIcon} label={channel.name} id={channel._id} />
                 })}
-            </div>
+            </WorkspacePannelSection>
         </div>
     )
 }

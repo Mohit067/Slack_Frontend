@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useGetWorkspaceById } from "@/hooks/apis/workspaces/useGetWorkspaceById";
+import { useCurrentWorkspace } from "@/hooks/context/useCurrentWrokspace";
 import { InfoIcon, LucideLoader2, SearchIcon } from "lucide-react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom"
 
 export const WorkspaceNavbar = () => {
@@ -9,6 +11,15 @@ export const WorkspaceNavbar = () => {
 
     const { isFetching, workspace } = useGetWorkspaceById(workspaceId);
     
+    const {setCurrentWorkspace} = useCurrentWorkspace();
+
+    useEffect(() => {
+        if(workspace){
+            setCurrentWorkspace(workspace);
+        }
+    }, [workspace, setCurrentWorkspace]);
+    
+
     if (isFetching) {
         return (
             <div className="flex items-center justify-center h-10 p-1.5 bg-[#421645]">
@@ -17,7 +28,7 @@ export const WorkspaceNavbar = () => {
         );
     }
     
-
+   
     return (
         <nav
             className="flex items-center justify-center h-10 p-1.5 bg-[#421645]"

@@ -17,7 +17,7 @@ export const WorkspacePannelHeader = ({ workspace }) => {
     const { auth } = useAuth();
     console.log(auth);
 
-    const isLoggedInUserAnAdminOfThisWorkspace = workspaceMembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
+    const isLoggedInUserAnAdminOfThisWorkspace = workspaceMembers?.find(member => member.memberId._id === auth?.user?._id && member.role === 'admin');
 
     useEffect(() => {
         setWorkspace(workspace);
