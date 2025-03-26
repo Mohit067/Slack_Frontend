@@ -1,12 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { Link, useParams } from "react-router-dom";
+import { useJoinWorkspace } from "@/hooks/apis/workspaces/useJoinWorkspace";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import VerificationInput from "react-verification-input";
+import { toast } from "sonner";
 
 export const JoinPage = () => {
     const { workspaceId } = useParams();
 
-    async function handleAddMemberToWorkspace() {
-        console.log('Adding member to workspace')
+    const {joinWorkspaceMutation} = useJoinWorkspace(workspaceId);
+    const navigate = useNavigate();
+    async function handleAddMemberToWorkspace(joinCode) {
+        console.log('Adding member to workspace', joinCode);
+        try {
+            await joinWorkspaceMutation(joinCode);
+            console.log('Member added to workspace successfully');
+            toast('You have been added to workspace successfully');
+            navigate(`/workspaces/${workspaceId}`)
+        } catch (error) {
+            console.log('Error adding member to workspace', error);
+            toast('You have been not added to workspace');
+        }
     }
     return (
         <div className="flex items-center justify-center h-screen bg-gradient-to-r from-[#5E2C5F] to-[#481349]">
