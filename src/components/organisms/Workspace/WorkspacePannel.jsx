@@ -1,6 +1,7 @@
+import { SideBarItem } from "@/components/atoms/SideBarItem/SideBarItem";
 import { WorkspacePannelHeader } from "@/components/molecules/Workspace/WorkspacePannelHeader";
 import { useGetWorkspaceById } from "@/hooks/apis/workspaces/useGetWorkspaceById";
-import { AlertTriangle, Loader } from "lucide-react";
+import { AlertTriangle, HashIcon, Loader, MessageSquareTextIcon, SendHorizonalIcon } from "lucide-react";
 import { useParams } from "react-router-dom"
 
 export const WorkspacePannel = () => {
@@ -31,6 +32,26 @@ export const WorkspacePannel = () => {
     return (
         <div className="flex flex-col h-full bg-[#5E2C5F]">
             <WorkspacePannelHeader workspace={workspace}/>
+            <div className="flex flex-col px-2 ">
+                <SideBarItem 
+                    label="Threads" 
+                    icon={MessageSquareTextIcon}
+                    id="threads"
+                    variant='active'
+                />
+                <SideBarItem 
+                    label="Drafts & sends" 
+                    icon={SendHorizonalIcon}
+                    id="drafts"
+                    variant='default'
+                />
+            </div>
+
+            <div>
+                {workspace?.channels?.map((channel) => {
+                    return <SideBarItem key={channel._id} icon={HashIcon} label={channel.name} id={channel._id} />
+                })}
+            </div>
         </div>
     )
 }
