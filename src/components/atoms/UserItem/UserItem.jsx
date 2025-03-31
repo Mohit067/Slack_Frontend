@@ -6,14 +6,16 @@ import { cva } from "class-variance-authority"
 import { Link } from "react-router-dom"
 
 const userItemVariants = cva(
-    'flex item-center gap-1.5 justify-center font-normal h-7 p-4 text-sm',{
-    variants: {
+    'flex items-center gap-2 justify-start font-normal h-8 px-4 text-sm rounded-md', {
+      variants: {
         variant: {
-            default: 'text-[#f9edffcc]',
-            active: 'text-[#481350] bg-white/90 hover:bg-white/80'
+          default: 'text-[#f9edffcc] hover:bg-[#6a2c70]/50 transition-colors',
+          active: 'text-[#481350] bg-white/90 hover:bg-white/80'
         }
-    }}
-)
+      }
+    }
+  );
+  
 
 export const UserItem = ({
     id,
@@ -30,11 +32,12 @@ export const UserItem = ({
             variant='transparent'
             size='sm'
             asChild
+
         >
             <Link to={`/workspace/${workspace?._id}/members/${id}`}>
                 <Avatar>
                     <AvatarImage src={image} className='rounded-md'/>
-                    <AvatarFallback className='rounded-md bg-sky-500 text-white'>
+                    <AvatarFallback className='rounded-md bg-sky-500 text-white '>
                         {label.charAt(0).toUpperCase()}
                     </AvatarFallback>
                 </Avatar>
