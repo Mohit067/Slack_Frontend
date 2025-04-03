@@ -5,12 +5,15 @@ import { WorkspacePrefrenceModalContextProvider } from "./WorkspacePrefrenceModa
 import { CreateChannelContextProvider } from "./CreateChannelContext";
 import { WorkspaceContextProvider } from "./WorkspaceContext";
 import { SocketContextProvider } from "./SocketContext";
+import { ChannelMessagesProvider } from "./ChannelMessage";
 
 export const AppContextProvider = conmbineContext(
+    ChannelMessagesProvider,
     SocketContextProvider,
     AuthContextProvider,
     CreateWorkspaceContextProvider,
     WorkspacePrefrenceModalContextProvider,
     CreateChannelContextProvider,
     WorkspaceContextProvider,
+
 );

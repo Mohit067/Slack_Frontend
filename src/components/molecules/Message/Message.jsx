@@ -14,19 +14,19 @@ export const Message = ({
                     <Avatar>
                         <AvatarImage className='rounded-md' src={authorImage}/> 
                         <AvatarFallback className='rounded-md bg-sky-500 text-white text-sm'>
-                            {authorName.charAt(0).toUpperCase()}
+                            {authorName?.charAt(0).toUpperCase()}
                         </AvatarFallback>
                     </Avatar>
                 </button>
 
                 <div className="flex flex-col w-full overflow-hidden">
                     <div className="text-sm">
-                        <button className="font-bold text-primary hover:underline">
+                        <button aria-label="Author profile" className="font-bold text-primary hover:underline">
                             {authorName}
                         </button>
                         <span>&nbsp;&nbsp;</span>
                         <button className="text-xs text-muted-foreground hover:underline">
-                            {createdAt}
+                            {createdAt || 'just now'}
                         </button>
                     </div>
                     <MessageRenderer value={body} /> 

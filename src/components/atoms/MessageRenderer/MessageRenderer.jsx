@@ -9,6 +9,7 @@ export const MessageRenderer = ({ value }) => {
     const [isEmpty, setIsEmpty] = useState(false);
 
     useEffect(() => {
+        console.log('Renderer Ref: ', rendererRef.current);
         if(!rendererRef.current) return;
         
         const quill = new Quill(document.createElement('div'), {
