@@ -5,7 +5,13 @@ import { useMutation } from "@tanstack/react-query";
 export const useCaptureOrder = () => {
     const { auth } = useAuth();
     const {mutateAsync: captureOrderMutation, isPending, isSuccess, error} = useMutation({
-        mutationFn: ({orderId, status, paymentId}) => capturePaymentRequest({ token: auth?.token, orderId, status, paymentId}),
+        mutationFn: ({orderId, status, paymentId, signature}) => capturePaymentRequest({ 
+            token: auth?.token, 
+            orderId, 
+            status, 
+            paymentId, 
+            signature
+        }),
         onSuccess: () => {
             console.log("Order capture successfully");
         },

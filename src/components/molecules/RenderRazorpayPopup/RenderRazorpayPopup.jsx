@@ -58,10 +58,12 @@ export const RenderRazorpayPopup = ({
             order_id: orderId,
             handler: async(response) => {
                 console.log("Payment success", response);
+                console.log("Signature", response.razorpay_signature);
                 await captureOrderMutation({
                     orderId: orderId,
                     status: 'success',
-                    paymentId: response.razorpay_payment_id
+                    paymentId: response.razorpay_payment_id,
+                    signature: response.razorpay_signature
                 })
             }
         })
